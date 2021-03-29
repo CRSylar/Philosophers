@@ -6,7 +6,7 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 19:50:30 by cromalde          #+#    #+#             */
-/*   Updated: 2021/03/27 21:23:56 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/03/29 10:43:16 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct      s_all
 	int					sleep;
 	int					eat;
 	int					die;
+	int					meals;
 	pthread_mutex_t		*prev;
 	pthread_mutex_t		forks;
 }                   t_all;
