@@ -6,15 +6,18 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 19:49:28 by cromalde          #+#    #+#             */
-/*   Updated: 2021/03/29 11:26:39 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/03/30 17:17:44 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+void	ft_takefork()
+{
 
+}
 
-void	start_loop(t_all *all)
+void	ft_start_loop(t_all *all)
 {
 	int	i;
 	int fork;
@@ -24,7 +27,7 @@ void	start_loop(t_all *all)
 	i = 0;
 	while (i < all->philo)
 	{
-	//	pthread_create(philo[i], NULL, takefork, (void*)fork);
+		pthread_mutex_init(&(all->forks), NULL);
 		i++;
 	}
 }
@@ -48,6 +51,6 @@ int		main(int ac, char **av)
 	if (ac == 6)
 		if ((all.meals = ft_atoi(av[5] < 0)))
 			return (printf("Number of meals can't be negative\n"));
-	start_loop(&all);
+	ft_start_loop(&all);
 	return (0);
 }
