@@ -6,7 +6,7 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 19:50:30 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/03 17:13:10 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/03 17:55:54 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ typedef struct		s_all
 
 int				ft_atoi(const char *nptr);
 unsigned long	now(void);
-void		*life_status(void *ptr);
+void			*life_status(void *ptr);
+void			ft_print(t_philo *p, char *str);
+void			go_to_sleep(int time, t_all *all);
 
 #endif

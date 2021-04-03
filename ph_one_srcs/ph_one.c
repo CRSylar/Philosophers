@@ -6,7 +6,7 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 19:49:28 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/03 17:27:59 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/03 18:00:04 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		ft_check_imput(int ac, char **av, t_all *all)
 	if ((all->sleep = ft_atoi(av[4])) < 0)
 		return (printf("Time to sleep can't be negative\n"));
 	if (ac == 6)
-		if ((all->n_meal = ft_atoi(av[5] < 0)))
+		if ((all->n_meal = ft_atoi(av[5]) < 0))
 			return (printf("Number of meals can't be negative\n"));
 	if (!(all->p = malloc(sizeof(t_philo) * all->philo)))
 		return (printf("Error: memory not allocated\n"));
@@ -69,6 +69,7 @@ void	*cicle(void	*ptr)
 		go_to_sleep(p->all->eat * 0.9, p->all);
 	while (!p->all->is_dead && (p->dop_end == -1 || (p->dop_end > p->dop_start)))
 		go_eat(p);
+	return (0);
 }
 
 void	ft_start_loop(t_all *all, int i, int j, int k)

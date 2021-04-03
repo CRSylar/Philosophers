@@ -6,7 +6,7 @@
 #    By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/27 19:37:16 by cromalde          #+#    #+#              #
-#    Updated: 2021/04/03 15:08:05 by cromalde         ###   ########.fr        #
+#    Updated: 2021/04/03 18:04:24 by cromalde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,23 +16,23 @@ PHI_O	=	philo_one
 PHI_TW	=	philo_two
 PHI_TR	=	philo_three
 
-PO_SRCS	=	ph_one_srcs/ph_one.c \
-						ph_one_srcs/utils.c
-PO_OBJ	= $(PO_SRCS:.c = .o)
+PO_SRCS	=	ph_one_srcs/ph_one.c ph_one_srcs/utils.c
+
+PO_OBJ	= $(PO_SRCS:.c=.o)
+O_INC	= includes/philo_one.h
 CC 		=	gcc
 CFLAG	=	-Wall -Wextra -Werror -pthread
 RM		=	rm -rf
 
-
 .PHONY:		all clean fclean re
-
-%.o = %.c:
-		@$(CC) $(CFLAG) -c  $^ -o $@
 
 all:	$(PHI_O) #$(PHI_TW) $(PHI_TR)
 
+%.o:%.c
+		@$(CC) -c $(CFLAG) $^ -o $@
+
 $(PHI_O):	$(PO_OBJ)
-		@$(CC) $(CFLAG) -o $(PHI_O) $(PO_OBJ) includes/philo_one.h
+		@$(CC) -o $(PHI_O) $(CFLAG) $(PO_OBJ)
 		@echo "\033[0;32mCreating        $(PHI_O)\033[0;0m"
 
 clean:
