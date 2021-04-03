@@ -6,7 +6,7 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 19:49:28 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/03 18:33:52 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/03 20:27:08 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		ft_check_imput(int ac, char **av, t_all *all)
 	if ((all->sleep = ft_atoi(av[4])) < 0)
 		return (printf("Time to sleep can't be negative\n"));
 	if (ac == 6)
-		if ((all->n_meal = ft_atoi(av[5]) < 0))
+		if ((all->n_meal = ft_atoi(av[5])) < 0)
 			return (printf("Number of meals can't be negative\n"));
 	if (!(all->p = malloc(sizeof(t_philo) * all->philo)))
 		return (printf("Error: memory not allocated\n"));
@@ -69,7 +69,7 @@ void	*cicle(void	*ptr)
 	pthread_detach(check);
 	if (p->id % 2 == 0 && p->all->eat > 1)
 		go_to_sleep(p->all->eat * 0.9, p->all);
-	while (!p->all->is_dead && (p->dop_end == -1 || (p->dop_end > p->dop_start)))
+	while (!p->all->is_dead && (p->dop_end == -1 || (p->dop_start < p->dop_end)))
 		go_eat(p);
 	return (0);
 }
@@ -87,10 +87,11 @@ void	ft_start_loop(t_all *all, int i, int j, int k)
 		all->p[i].rgt_hand = (i + 1) % all->philo;
 		all->p[i].id = i + 1;
 		all->p[i].eat = 0;
-		if (all->n_meal > 0)
+		if (all->n_meal >= 0)
 			all->p[i].dop_end = all->n_meal;
 		else
 			all->p[i].dop_end = -1;
+		all->p[i].dop_start = 0;
 	}
 	while ((++j) < all->philo)
 	{
