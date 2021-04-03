@@ -6,11 +6,52 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 21:20:10 by cromalde          #+#    #+#             */
-/*   Updated: 2021/03/27 21:20:48 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/03 17:20:49 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/philo_one.h"
+
+void	go_to_sleep(int time, t_all *all)
+{
+	unsigned long	end;
+
+	end = now() + time;
+	while (now() < end && !all->is_dead)
+		usleep(time);
+}
+
+void		*life_status(void *ptr)
+{
+	t_philo *p;
+
+	p = (t_philo *)ptr;
+	while (!p->all->is_dead)
+	{
+		usleep(100);
+		pthread_mutex_lock(&p->eating);
+		if (now() - p->t_last_meal > (unsigned long)p->all->die && !p->all->is_dead)
+		{
+			p->all->is_dead = 1;
+			pthread_mutex_unlock(&p->eating);
+			pthread_mutex_lock(&p->all->dead);
+			printf("%lu %d is died\n", (now() - p->all->time_start), p->id);
+			return (0);
+		}
+		else if (!p->all->is_dead && p->dop_end != -1 && p->dop_start >= p->dop_end)
+			return (0);
+		pthread_mutex_unlock(&p->eating);
+	}
+	return (0);
+}
+
+unsigned long	now(void)
+{
+	struct timeval	t;
+
+	gettimeofday(&t, 0);
+	return ((t.tv_sec * (unsigned long)1000) + (t.tv_usec / 1000));
+}
 
 int		ft_atoi(const char *nptr)
 {

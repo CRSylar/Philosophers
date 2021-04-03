@@ -1,44 +1,63 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   philo_one.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 19:50:30 by cromalde          #+#    #+#             */
-/*   Updated: 2021/03/30 17:12:51 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/03 17:13:10 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef PHILO_ONE_H
+# define PHILO_ONE_H
 
 # include <stdlib.h>
+# include <errno.h>
 # include <unistd.h>
 # include <stdio.h>
-# include <fcntl.h>
 # include <pthread.h>
-# include <semaphore.h>
 # include <sys/time.h>
 # include <sys/wait.h>
 # include <signal.h>
 
-typedef struct			s_all
+struct s_all;
+
+typedef struct	s_philo
 {
+	int					id;
+	int					lft_hand;
+	int					rgt_hand;
+	int					dop_start;
+	int					dop_end;
+	int					eat;
+	unsigned long		t_last_meal;
+	unsigned long		t_to_live;
+	pthread_t			t;
+	pthread_mutex_t		eating;
+	struct s_all		*all;
+}				t_philo;
+
+
+typedef struct		s_all
+{
+	t_philo				*p;
 	int					philo;
 	int					sleep;
 	int					eat;
 	int					die;
+	int					is_dead;
 	int					n_meal;
-	int					action;
-	long				start;
-	long				last_meal;
-	pthread_mutex_t		*status;
-	pthread_mutex_t		*meals;
-	pthread_mutex_t		*prev;
-	pthread_mutex_t		forks;
-}						t_all;
+	int					total_meal;
+	unsigned long		time_start;
+	pthread_mutex_t		*forks;
+	pthread_mutex_t		print;
+	pthread_mutex_t		dead;
+}					t_all;
 
-int		ft_atoi(const char *nptr);
+int				ft_atoi(const char *nptr);
+unsigned long	now(void);
+void		*life_status(void *ptr);
 
 #endif
