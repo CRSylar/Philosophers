@@ -6,7 +6,7 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 21:20:10 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/03 17:59:57 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/03 18:27:31 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_print(t_philo *p, char *str)
 	{
 		pthread_mutex_lock(&p->all->print);
 		if (!p->all->is_dead && p->all->total_meal != 0)
-			printf("%lu %d %s", (now() - p->all->time_start), p->id, str);
+			printf("%lu %d %s\n", (now() - p->all->time_start), p->id, str);
 		pthread_mutex_unlock(&p->all->print);
 	}
 }

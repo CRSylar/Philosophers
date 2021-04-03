@@ -6,7 +6,7 @@
 #    By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/27 19:37:16 by cromalde          #+#    #+#              #
-#    Updated: 2021/04/03 18:04:24 by cromalde         ###   ########.fr        #
+#    Updated: 2021/04/03 18:09:05 by cromalde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ PO_SRCS	=	ph_one_srcs/ph_one.c ph_one_srcs/utils.c
 PO_OBJ	= $(PO_SRCS:.c=.o)
 O_INC	= includes/philo_one.h
 CC 		=	gcc
-CFLAG	=	-Wall -Wextra -Werror -pthread
+CFLAG	=	-Wall -Wextra -Werror -pthread -g
 RM		=	rm -rf
 
 .PHONY:		all clean fclean re

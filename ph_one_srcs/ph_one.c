@@ -6,7 +6,7 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 19:49:28 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/03 18:00:04 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/03 18:33:52 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int		ft_check_imput(int ac, char **av, t_all *all)
 		return (printf("Error: memory not allocated\n"));
 	if (!(all->forks = malloc(sizeof(pthread_mutex_t) * all->philo)))
 		return (printf("Error: memory not allocated\n"));
+	pthread_mutex_init(&all->print, 0);
+	pthread_mutex_init(&all->dead, 0);
 	return (0);
 }
 
@@ -92,7 +94,7 @@ void	ft_start_loop(t_all *all, int i, int j, int k)
 	}
 	while ((++j) < all->philo)
 	{
-		philo = (void*)(&all->p[i]);
+		philo = (void*)(&all->p[j]);
 		if (pthread_create(&all->p[j].t, 0, cicle, philo) != 0)
 			return ;
 	}
@@ -108,6 +110,11 @@ int		main(int ac, char **av)
 	i = 1;
 	if (ft_check_imput(ac, av, &all))
 		return (1);
+	all.is_dead = 0;
+	if (ac == 6 && all.n_meal > 0)
+		all.total_meal = all.n_meal * all.philo;
+	else
+		all.total_meal = -1;
 	all.time_start = now();
 	ft_start_loop(&all, -1, -1, -1);
 	return (0);
