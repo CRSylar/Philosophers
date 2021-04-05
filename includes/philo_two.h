@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_one.h                                        :+:      :+:    :+:   */
+/*   philo_two.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/27 19:50:30 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/05 11:27:36 by cromalde         ###   ########.fr       */
+/*   Created: 2021/04/05 11:30:18 by cromalde          #+#    #+#             */
+/*   Updated: 2021/04/05 11:50:37 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_ONE_H
-# define PHILO_ONE_H
+#ifndef PHILO_TWO_H
+# define PHILO_TWO_H
 
 # include <stdlib.h>
 # include <errno.h>
 # include <unistd.h>
 # include <stdio.h>
+# include <semaphore.h>
+# include <fcntl.h>
 # include <pthread.h>
 # include <sys/time.h>
 # include <sys/wait.h>
@@ -35,7 +37,7 @@ typedef struct	s_philo
 	unsigned long		t_last_meal;
 	unsigned long		t_to_live;
 	pthread_t			t;
-	pthread_mutex_t		eating;
+	sem_t				eating;
 	struct s_all		*all;
 }				t_philo;
 
@@ -50,9 +52,9 @@ typedef struct		s_all
 	int					n_meal;
 	int					total_meal;
 	unsigned long		time_start;
-	pthread_mutex_t		*forks;
-	pthread_mutex_t		print;
-	pthread_mutex_t		dead;
+	sem_t				*forks;
+	sem_t				*print;
+	sem_t				*dead;
 }					t_all;
 
 int				ft_atoi(const char *nptr);
@@ -60,5 +62,6 @@ unsigned long	now(void);
 void			*life_status(void *ptr);
 void			ft_print(t_philo *p, char *str);
 void			go_to_sleep(int time, t_all *all);
+
 
 #endif

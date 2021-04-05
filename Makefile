@@ -6,7 +6,7 @@
 #    By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/27 19:37:16 by cromalde          #+#    #+#              #
-#    Updated: 2021/04/03 18:09:05 by cromalde         ###   ########.fr        #
+#    Updated: 2021/04/05 11:09:56 by cromalde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,16 +17,19 @@ PHI_TW	=	philo_two
 PHI_TR	=	philo_three
 
 PO_SRCS	=	ph_one_srcs/ph_one.c ph_one_srcs/utils.c
+PW_SRCS	=	ph_one_srcs/ph_two.c
 
 PO_OBJ	= $(PO_SRCS:.c=.o)
+PW_OBJ = $(PW_SRCS:.c=.o)
 O_INC	= includes/philo_one.h
+W_INC	= includes/philo_two.h
 CC 		=	gcc
 CFLAG	=	-Wall -Wextra -Werror -pthread -g
 RM		=	rm -rf
 
 .PHONY:		all clean fclean re
 
-all:	$(PHI_O) #$(PHI_TW) $(PHI_TR)
+all:	$(PHI_O) $(PHI_TW) #$(PHI_TR)
 
 %.o:%.c
 		@$(CC) -c $(CFLAG) $^ -o $@
