@@ -6,7 +6,7 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 11:30:11 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/05 16:56:46 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/05 17:07:35 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,12 @@ void	ft_start_loop(t_all *all, int i, int j, int check)
 	while (1)
 	{
 		waitpid(-1, &all->status, 0);
-		if ((WEXITSTATUS(all->status) == 1) || (WEXITSTATUS(all->status) && \
+		if ((WEXITSTATUS(all->status) == 1) || (WEXITSTATUS(all->status) == 2 && \
 			(++check == all->philo)))
 			break ;
 	}
 	while ((++j) < all->philo)
-		kill(all->p.pid[j], SIGTERM);
+		kill(all->p.pid[j], SIGKILL);
 }
 
 int	main(int ac, char **av)
