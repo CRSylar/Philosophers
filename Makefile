@@ -6,7 +6,7 @@
 #    By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/27 19:37:16 by cromalde          #+#    #+#              #
-#    Updated: 2021/04/05 12:42:31 by cromalde         ###   ########.fr        #
+#    Updated: 2021/04/05 12:55:08 by cromalde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ PHI_O	=	philo_one
 PHI_TW	=	philo_two
 PHI_TR	=	philo_three
 
-PO_SRCS	=	ph_one_srcs/ph_one.c ph_one_srcs/utils.c
-PW_SRCS	=	ph_one_srcs/ph_two.c ph_one_srcs/utils.c
+PO_SRCS	=	ph_one_srcs/ph_one.c ph_one_srcs/utils_one.c
+PW_SRCS	=	ph_one_srcs/ph_two.c ph_one_srcs/utils_two.c
 
 PO_OBJ	= $(PO_SRCS:.c=.o)
 PW_OBJ = $(PW_SRCS:.c=.o)

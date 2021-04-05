@@ -6,7 +6,7 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 11:30:11 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/05 12:40:09 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/05 12:47:26 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void		*cicle(void *ptr)
 	if (pthread_create(&check, 0, life_status, p) != 0)
 		return (0);
 	pthread_detach(check);
-	if (p->id %2 == 0 && p->all->eat > 1)
+	if (p->id %2 == 0)
 		go_to_sleep(p->all->eat * 0.9, p->all);
 	while (!p->all->is_dead && (p->dop_end == -1 || p->dop_start < p->dop_end))
 		go_eat(p);
@@ -80,7 +80,7 @@ void	ft_start_loop(t_all *all, int i, int j, int k)
 {
 	void	*philo;
 
-	while (++i < all->philo)
+	while ((++i) < all->philo)
 	{
 		all->p[i].all = all;
 		all->p[i].eating = sem_open("eating", O_CREAT | O_EXCL, 0777, 1);
@@ -110,10 +110,8 @@ void	ft_start_loop(t_all *all, int i, int j, int k)
 
 int	main(int ac, char **av)
 {
-	int		i;
 	t_all	all;
 
-	i = 1;
 	if (ft_check_imput(ac, av, &all))
 		return (1);
 	all.is_dead = 0;
