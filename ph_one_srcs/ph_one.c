@@ -6,7 +6,7 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 19:49:28 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/05 11:59:04 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/05 13:17:51 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ int		ft_check_imput(int ac, char **av, t_all *all)
 		return (printf("Time to eat can't be negative\n"));
 	if ((all->sleep = ft_atoi(av[4])) < 0)
 		return (printf("Time to sleep can't be negative\n"));
-	if (ac == 6)
-		if ((all->n_meal = ft_atoi(av[5])) < 0)
-			return (printf("Number of meals can't be negative\n"));
+	if ((ac == 6) && ((all->n_meal = ft_atoi(av[5])) < 0))
+		return (printf("Number of meals can't be negative\n"));
+	else
+		all->n_meal = -1;
 	if (!(all->p = malloc(sizeof(t_philo) * all->philo)))
 		return (printf("Error: memory not allocated\n"));
 	if (!(all->forks = malloc(sizeof(pthread_mutex_t) * all->philo)))
