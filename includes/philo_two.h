@@ -6,7 +6,7 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 11:30:18 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/05 12:04:01 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/05 12:26:51 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct	s_philo
 	unsigned long		t_last_meal;
 	unsigned long		t_to_live;
 	pthread_t			t;
-	sem_t				eating;
+	sem_t				*eating;
 	struct s_all		*all;
 }				t_philo;
 

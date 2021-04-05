@@ -6,7 +6,7 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 11:30:11 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/05 12:23:49 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/05 12:40:09 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,12 @@ int	ft_check_imput(int ac, char **av, t_all *all)
 			return (printf("Number of meal can't be negative\n"));
 	if (!(all->p = malloc(sizeof(t_philo) * all->philo)))
 		return (printf("Error: memory not allocated\n"));
-	sem_open("print", O_CREAT | O_EXCL, 0777, 1);
-	sem_open("dead", O_CREAT | O_EXCL, 0777, 1);
-	sem_open("forks", O_CREAT | O_EXCL, 0777, all->philo);
+	sem_unlink("print");
+	sem_unlink("dead");
+	sem_unlink("forks");
+	all->print = sem_open("print", O_CREAT | O_EXCL, 0777, 1);
+	all->dead = sem_open("dead", O_CREAT | O_EXCL, 0777, 1);
+	all->forks = sem_open("forks", O_CREAT | O_EXCL, 0777, all->philo);
 	return (0);
 }
 
@@ -43,6 +46,7 @@ void		go_eat(t_philo *p)
 	ft_print(p, "has taken a fork");
 	sem_wait(p->eating);
 	p->t_last_meal = now();
+	ft_print(p, "is eating");
 	p->dop_start++;
 	if (p->all->total_meal > 0)
 		p->all->total_meal -= 1;
@@ -91,13 +95,13 @@ void	ft_start_loop(t_all *all, int i, int j, int k)
 	while ((++j) < all->philo)
 	{
 		philo = (void*)(&all->p[j]);
-		if (pthread_create(&all->p[i].t, 0, cicle, philo) != 0)
+		if (pthread_create(&all->p[j].t, 0, cicle, philo) != 0)
 			return ;
 	}
 	while ((++k) < all->philo)
 		pthread_join(all->p[k].t, 0);
-	i = 0;
-	while (i < all->philo)
+	i = -1;
+	while ((++i) < all->philo)
 	{
 		sem_close(all->p[i].eating);
 		sem_unlink("eating");
@@ -119,6 +123,12 @@ int	main(int ac, char **av)
 		all.total_meal = -1;
 	all.time_start = now();
 	ft_start_loop(&all, -1, -1, -1);
-	/* Da Aggiungere SEM_COSE + SEM_UNLINK e free struct */
+	sem_close(all.dead);
+	sem_close(all.print);
+	sem_close(all.forks);
+	sem_unlink("print");
+	sem_unlink("forks");
+	sem_unlink("dead");
+	free(all.p);
 	return (0);
 }

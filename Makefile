@@ -6,7 +6,7 @@
 #    By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/27 19:37:16 by cromalde          #+#    #+#              #
-#    Updated: 2021/04/05 11:09:56 by cromalde         ###   ########.fr        #
+#    Updated: 2021/04/05 12:42:31 by cromalde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ PHI_TW	=	philo_two
 PHI_TR	=	philo_three
 
 PO_SRCS	=	ph_one_srcs/ph_one.c ph_one_srcs/utils.c
-PW_SRCS	=	ph_one_srcs/ph_two.c
+PW_SRCS	=	ph_one_srcs/ph_two.c ph_one_srcs/utils.c
 
 PO_OBJ	= $(PO_SRCS:.c=.o)
 PW_OBJ = $(PW_SRCS:.c=.o)
@@ -38,12 +38,16 @@ $(PHI_O):	$(PO_OBJ)
 		@$(CC) -o $(PHI_O) $(CFLAG) $(PO_OBJ)
 		@echo "\033[0;32mCreating        $(PHI_O)\033[0;0m"
 
+$(PHI_TW):	$(PW_OBJ)
+		@$(CC) -o $(PHI_TW) $(CFLAG) $(PW_OBJ)
+		@echo "\033[0;32mCreating        $(PHI_TW)\033[0;0m"
+
 clean:
-	@$(RM) $(PO_OBJ)
+	@$(RM) $(PO_OBJ) $(PW_OBJ)
 	@echo "\033[0;31mCleaning        objs\033[0;0m"
 
 fclean: clean
-	@$(RM) $(PHI_O)
+	@$(RM) $(PHI_O) $(PHI_TW)
 	@echo "\033[0;31mRemoving          binaries\033[0;0m"
 
 re: fclean all
