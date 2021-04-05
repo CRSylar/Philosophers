@@ -6,7 +6,7 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 19:50:30 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/05 11:27:36 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/05 14:58:11 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 # include <sys/wait.h>
 # include <signal.h>
 
-struct s_all;
+struct	s_all;
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	int					id;
 	int					lft_hand;
@@ -39,7 +39,7 @@ typedef struct	s_philo
 	struct s_all		*all;
 }				t_philo;
 
-typedef struct		s_all
+typedef struct s_all
 {
 	t_philo				*p;
 	int					philo;

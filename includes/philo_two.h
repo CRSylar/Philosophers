@@ -6,7 +6,7 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 11:30:18 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/05 12:26:51 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/05 14:58:51 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
 # include <sys/wait.h>
 # include <signal.h>
 
-struct s_all;
+struct	s_all;
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	int					id;
 	int					dop_start;
@@ -39,7 +39,7 @@ typedef struct	s_philo
 	struct s_all		*all;
 }				t_philo;
 
-typedef struct		s_all
+typedef struct s_all
 {
 	t_philo				*p;
 	int					philo;
@@ -60,6 +60,5 @@ unsigned long	now(void);
 void			*life_status(void *ptr);
 void			ft_print(t_philo *p, char *str);
 void			go_to_sleep(int time, t_all *all);
-
 
 #endif

@@ -6,31 +6,30 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 19:49:28 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/05 14:46:32 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/05 15:17:23 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_one.h"
 
-int		ft_check_imput(int ac, char **av, t_all *all)
+int	ft_check_imput(int ac, char **av, t_all *all)
 {
 	if (ac < 5 || ac > 6)
 		return (printf("Wrong number of arguments\n"));
-	if ((all->philo = ft_atoi(av[1])) < 1)
-		return (printf("At least 1 Philo needed!\n"));
-	if ((all->die = ft_atoi(av[2])) < 0)
-		return (printf("Time to die can't be negative\n"));
-	if ((all->eat = ft_atoi(av[3])) < 0)
-		return (printf("Time to eat can't be negative\n"));
-	if ((all->sleep = ft_atoi(av[4])) < 0)
-		return (printf("Time to sleep can't be negative\n"));
-	if ((ac == 6) && ((all->n_meal = ft_atoi(av[5])) < 0))
-		return (printf("Number of meals can't be negative\n"));
+	all->philo = ft_atoi(av[1]);
+	all->die = ft_atoi(av[2]);
+	all->eat = ft_atoi(av[3]);
+	all->sleep = ft_atoi(av[4]);
+	if (ac == 6)
+		all->n_meal = ft_atoi(av[5]);
 	else
 		all->n_meal = -1;
-	if (!(all->p = malloc(sizeof(t_philo) * all->philo)))
-		return (printf("Error: memory not allocated\n"));
-	if (!(all->forks = malloc(sizeof(pthread_mutex_t) * all->philo)))
+	if ((all->philo < 1) || (all->die < 0) || (all->eat < 0) || \
+		(all->sleep < 0) || (ac == 6 && all->n_meal < 0))
+		return (printf("One or More Params is Wrong\n"));
+	all->p = malloc(sizeof(t_philo) * all->philo);
+	all->forks = malloc(sizeof(pthread_mutex_t) * all->philo);
+	if (!all->p || !all->forks)
 		return (printf("Error: memory not allocated\n"));
 	pthread_mutex_init(&all->print, 0);
 	pthread_mutex_init(&all->dead, 0);
@@ -63,14 +62,15 @@ void	*cicle(void	*ptr)
 	t_philo		*p;
 	pthread_t	check;
 
-	p = (t_philo*)ptr;
+	p = (t_philo *)ptr;
 	p->t_last_meal = now();
 	if (pthread_create(&check, 0, life_status, p) != 0)
 		return (0);
 	pthread_detach(check);
 	if (p->id % 2 == 0 && p->all->eat > 1)
 		go_to_sleep(p->all->eat * 0.9, p->all);
-	while (!p->all->is_dead && (p->dop_end == -1 || (p->dop_start < p->dop_end)))
+	while (!p->all->is_dead && \
+		(p->dop_end == -1 || (p->dop_start < p->dop_end)))
 		go_eat(p);
 	return (0);
 }
@@ -96,7 +96,7 @@ void	ft_start_loop(t_all *all, int i, int j, int k)
 	}
 	while ((++j) < all->philo)
 	{
-		philo = (void*)(&all->p[j]);
+		philo = (void *)(&all->p[j]);
 		if (pthread_create(&all->p[j].t, 0, cicle, philo) != 0)
 			return ;
 	}
@@ -104,9 +104,9 @@ void	ft_start_loop(t_all *all, int i, int j, int k)
 		pthread_join(all->p[k].t, 0);
 }
 
-int		main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	int 	i;
+	int		i;
 	t_all	all;
 
 	i = 1;

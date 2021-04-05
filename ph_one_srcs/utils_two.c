@@ -6,7 +6,7 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 21:20:10 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/05 12:57:10 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/05 15:10:50 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,17 @@ void	go_to_sleep(int time, t_all *all)
 		usleep(time);
 }
 
-void		*life_status(void *ptr)
+void	*life_status(void *ptr)
 {
-	t_philo *p;
+	t_philo	*p;
 
 	p = (t_philo *)ptr;
 	while (!p->all->is_dead)
 	{
 		usleep(100);
 		sem_wait(p->eating);
-		if (now() - p->t_last_meal > (unsigned long)p->all->die && !p->all->is_dead)
+		if (now() - p->t_last_meal > (unsigned long)p->all->die && \
+			 !p->all->is_dead)
 		{
 			p->all->is_dead = 1;
 			sem_post(p->eating);
@@ -38,7 +39,8 @@ void		*life_status(void *ptr)
 			printf("%lu %d is died\n", (now() - p->all->time_start), p->id);
 			return (0);
 		}
-		else if (!p->all->is_dead && p->dop_end != -1 && p->dop_start >= p->dop_end)
+		else if (!p->all->is_dead && p->dop_end != -1 && \
+			 p->dop_start >= p->dop_end)
 			return (0);
 		sem_post(p->eating);
 	}
@@ -64,7 +66,7 @@ unsigned long	now(void)
 	return ((t.tv_sec * (unsigned long)1000) + (t.tv_usec / 1000));
 }
 
-int		ft_atoi(const char *nptr)
+int	ft_atoi(const char *nptr)
 {
 	unsigned int		out;
 	int					neg;

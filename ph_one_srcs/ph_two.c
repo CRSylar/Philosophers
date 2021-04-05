@@ -6,7 +6,7 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 11:30:11 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/05 13:17:24 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/05 15:19:36 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@ int	ft_check_imput(int ac, char **av, t_all *all)
 {
 	if (ac < 5 || ac > 6)
 		return (printf("Wrong number of arguments\n"));
-	if ((all->philo = ft_atoi(av[1])) < 1)
-		return (printf("At least 1 Philo needed!\n"));
-	if ((all->die = ft_atoi(av[2])) < 0)
-		return (printf("Time to die can't be negative\n"));
-	if ((all->eat = ft_atoi(av[3])) < 0)
-		return (printf("Time to eat can't be negative\n"));
-	if ((all->sleep = ft_atoi(av[4])) < 0)
-		return (printf("Time to sleep can't be neagtive\n"));
-	if ((ac == 6) && ((all->n_meal = ft_atoi(av[5])) < 0))
-		return (printf("Number of meal can't be negative\n"));
+	all->philo = ft_atoi(av[1]);
+	all->die = ft_atoi(av[2]);
+	all->eat = ft_atoi(av[3]);
+	all->sleep = ft_atoi(av[4]);
+	if (ac == 6)
+		all->n_meal = ft_atoi(av[5]);
 	else
 		all->n_meal = -1;
-	if (!(all->p = malloc(sizeof(t_philo) * all->philo)))
+	if ((all->philo < 1) || (all->die < 0) || (all->eat < 0) || \
+		(all->sleep < 0) || (ac == 6 && all->n_meal < 0))
+		return (printf("One or More Params is Wrong\n"));
+	all->p = malloc(sizeof(t_philo) * all->philo);
+	if (!all->p)
 		return (printf("Error: memory not allocated\n"));
 	sem_unlink("print");
 	sem_unlink("dead");
@@ -39,7 +39,7 @@ int	ft_check_imput(int ac, char **av, t_all *all)
 	return (0);
 }
 
-void		go_eat(t_philo *p)
+void	go_eat(t_philo *p)
 {
 	sem_wait(p->all->forks);
 	ft_print(p, "has taken a fork");
@@ -60,17 +60,17 @@ void		go_eat(t_philo *p)
 	ft_print(p, "is thinking");
 }
 
-void		*cicle(void *ptr)
+void	*cicle(void *ptr)
 {
 	t_philo		*p;
 	pthread_t	check;
 
-	p = (t_philo*)ptr;
+	p = (t_philo *)ptr;
 	p->t_last_meal = now();
 	if (pthread_create(&check, 0, life_status, p) != 0)
 		return (0);
 	pthread_detach(check);
-	if (p->id %2 == 0)
+	if (p->id % 2 == 0)
 		go_to_sleep(p->all->eat * 0.9, p->all);
 	while (!p->all->is_dead && (p->dop_end == -1 || p->dop_start < p->dop_end))
 		go_eat(p);
@@ -95,7 +95,7 @@ void	ft_start_loop(t_all *all, int i, int j, int k)
 	}
 	while ((++j) < all->philo)
 	{
-		philo = (void*)(&all->p[j]);
+		philo = (void *)(&all->p[j]);
 		if (pthread_create(&all->p[j].t, 0, cicle, philo) != 0)
 			return ;
 	}
@@ -103,10 +103,7 @@ void	ft_start_loop(t_all *all, int i, int j, int k)
 		pthread_join(all->p[k].t, 0);
 	i = -1;
 	while ((++i) < all->philo)
-	{
-		sem_close(all->p[i].eating);
-		sem_unlink("eating");
-	}
+		k = sem_close(all->p[i].eating) + sem_unlink("eating");
 }
 
 int	main(int ac, char **av)
