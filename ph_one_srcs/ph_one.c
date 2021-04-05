@@ -6,7 +6,7 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 19:49:28 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/03 20:27:08 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/05 11:59:04 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,6 @@ int		main(int ac, char **av)
 		all.total_meal = -1;
 	all.time_start = now();
 	ft_start_loop(&all, -1, -1, -1);
+	/* Da Aggiungere Mutex_destroy e free delle struct */
 	return (0);
 }

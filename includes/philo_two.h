@@ -6,7 +6,7 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 11:30:18 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/05 11:50:37 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/05 12:04:01 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ struct s_all;
 typedef struct	s_philo
 {
 	int					id;
-	int					lft_hand;
-	int					rgt_hand;
 	int					dop_start;
 	int					dop_end;
 	int					eat;
