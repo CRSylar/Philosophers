@@ -6,7 +6,7 @@
 #    By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/27 19:37:16 by cromalde          #+#    #+#              #
-#    Updated: 2021/04/05 16:19:43 by cromalde         ###   ########.fr        #
+#    Updated: 2021/04/05 16:42:32 by cromalde         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,11 +51,11 @@ $(PHI_TR):	$(PT_OBJ)
 		@echo "\033[0;32mCreating        $(PHI_TR)\033[0;0m"
 
 clean:
-	@$(RM) $(PO_OBJ) $(PW_OBJ)
+	@$(RM) $(PO_OBJ) $(PW_OBJ) $(PT_OBJ)
 	@echo "\033[0;31mCleaning        objs\033[0;0m"
 
 fclean: clean
-	@$(RM) $(PHI_O) $(PHI_TW)
+	@$(RM) $(PHI_O) $(PHI_TW) $(PHI_TR)
 	@echo "\033[0;31mRemoving          binaries\033[0;0m"
 
 re: fclean all

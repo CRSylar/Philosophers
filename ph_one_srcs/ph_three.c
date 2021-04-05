@@ -6,7 +6,7 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 11:30:11 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/05 16:13:18 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/05 16:56:46 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,22 +74,23 @@ void	*cicle(void *ptr)
 		go_to_sleep(p->all->eat * 0.9, p->all);
 	while (!p->all->is_dead && (p->m_end == -1 || p->m_start < p->m_end))
 		go_eat(p);
-	if (!p->all->is_dead && p->m_end != -1 && p->m_start == p->m_end)
+	if ((!p->all->is_dead) && (p->m_end != -1) && (p->m_start == p->m_end))
 		exit(2);
 	return (0);
 }
 
-int	ft_start_loop(t_all *all, int i, int j, int check)
+void	ft_start_loop(t_all *all, int i, int j, int check)
 {
 	all->status = 0;
 	all->p.m_start = 0;
-	if (all->n_meal > 0)
+	all->p.m_end = -1;
+	if (all->n_meal >= 0)
 		all->p.m_end = all->n_meal;
 	while ((++i) < all->philo)
 	{
 		all->p.pid[i] = fork();
-		if (all->p.pid[i] < 0)
-			return (printf("Cannot fork!\n"));
+		if ((all->p.pid[i] < 0) && printf("Cannot fork!\n"))
+			return ;
 		else if (all->p.pid[i] == 0)
 		{
 			all->p.id = i + 1;
@@ -99,9 +100,8 @@ int	ft_start_loop(t_all *all, int i, int j, int check)
 	while (1)
 	{
 		waitpid(-1, &all->status, 0);
-		if (all->status == 1)
-			break ;
-		else if ((all->status == 2) && (++check == all->philo))
+		if ((WEXITSTATUS(all->status) == 1) || (WEXITSTATUS(all->status) && \
+			(++check == all->philo)))
 			break ;
 	}
 	while ((++j) < all->philo)
@@ -126,5 +126,6 @@ int	main(int ac, char **av)
 	sem_unlink("print");
 	sem_unlink("forks");
 	sem_unlink("dead");
+	free(all.p.pid);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 11:30:18 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/05 15:49:18 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/05 16:43:34 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ struct	s_all;
 
 typedef struct s_philo
 {
-	pid_t			*pid;
+	pid_t				*pid;
 	int					id;
 	int					m_start;
 	int					m_end;
