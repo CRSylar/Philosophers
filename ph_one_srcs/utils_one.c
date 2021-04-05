@@ -6,7 +6,7 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 21:20:10 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/05 15:11:49 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/05 18:09:11 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	*life_status(void *ptr)
 			p->all->is_dead = 1;
 			pthread_mutex_unlock(&p->eating);
 			pthread_mutex_lock(&p->all->dead);
-			printf("%lu %d is died\n", (now() - p->all->time_start), p->id);
+			printf(RED" %lu %d is died\n"NC, (now() - p->all->time_start), p->id);
 			return (0);
 		}
 		else if (!p->all->is_dead && p->dop_end != -1 && \
@@ -47,13 +47,13 @@ void	*life_status(void *ptr)
 	return (0);
 }
 
-void	ft_print(t_philo *p, char *str)
+void	ft_print(t_philo *p, char *str, char *color)
 {
 	if (!p->all->is_dead && p->all->total_meal != 0)
 	{
 		pthread_mutex_lock(&p->all->print);
 		if (!p->all->is_dead && p->all->total_meal != 0)
-			printf("%lu %d %s\n", (now() - p->all->time_start), p->id, str);
+			printf("%s %lu %d %s\n"NC, color, (now() - p->all->time_start), p->id, str);
 		pthread_mutex_unlock(&p->all->print);
 	}
 }

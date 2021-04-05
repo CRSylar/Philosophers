@@ -6,7 +6,7 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 11:30:11 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/05 15:44:54 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/05 18:12:17 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ int	ft_check_imput(int ac, char **av, t_all *all)
 void	go_eat(t_philo *p)
 {
 	sem_wait(p->all->forks);
-	ft_print(p, "has taken a fork");
+	ft_print(p, "has taken a fork", YLL);
 	sem_wait(p->all->forks);
-	ft_print(p, "has taken a fork");
+	ft_print(p, "has taken a fork", YLL);
 	sem_wait(p->eating);
 	p->t_last_meal = now();
-	ft_print(p, "is eating");
+	ft_print(p, "is eating", GRN);
 	p->dop_start++;
 	if (p->all->total_meal > 0)
 		p->all->total_meal -= 1;
@@ -55,9 +55,9 @@ void	go_eat(t_philo *p)
 	sem_post(p->eating);
 	sem_post(p->all->forks);
 	sem_post(p->all->forks);
-	ft_print(p, "is sleeping");
+	ft_print(p, "is sleeping", YLL);
 	go_to_sleep(p->all->sleep, p->all);
-	ft_print(p, "is thinking");
+	ft_print(p, "is thinking", YLL);
 }
 
 void	*cicle(void *ptr)

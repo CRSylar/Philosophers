@@ -6,7 +6,7 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 19:49:28 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/05 15:17:23 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/05 18:05:45 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ int	ft_check_imput(int ac, char **av, t_all *all)
 void	go_eat(t_philo *p)
 {
 	pthread_mutex_lock(&p->all->forks[p->rgt_hand]);
-	ft_print(p, "has taken a fork");
+	ft_print(p, "has taken a fork", YLL);
 	pthread_mutex_lock(&p->all->forks[p->lft_hand]);
-	ft_print(p, "has taken a fork");
+	ft_print(p, "has taken a fork", YLL);
 	pthread_mutex_lock(&p->eating);
 	p->t_last_meal = now();
-	ft_print(p, "is eating");
+	ft_print(p, "is eating", GRN);
 	p->dop_start++;
 	if (p->all->total_meal > 0)
 		p->all->total_meal -= 1;
@@ -52,9 +52,9 @@ void	go_eat(t_philo *p)
 	pthread_mutex_unlock(&p->eating);
 	pthread_mutex_unlock(&p->all->forks[p->rgt_hand]);
 	pthread_mutex_unlock(&p->all->forks[p->lft_hand]);
-	ft_print(p, "is sleeping");
+	ft_print(p, "is sleeping", YLL);
 	go_to_sleep(p->all->sleep, p->all);
-	ft_print(p, "is thinking");
+	ft_print(p, "is thinking", YLL);
 }
 
 void	*cicle(void	*ptr)

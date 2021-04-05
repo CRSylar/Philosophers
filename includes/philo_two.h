@@ -6,7 +6,7 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 11:30:18 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/05 14:58:51 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/05 18:09:47 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@
 # include <sys/time.h>
 # include <sys/wait.h>
 # include <signal.h>
+
+# define RED "\033[0;31m"
+# define GRN "\033[0;32m"
+# define YLL "\033[0;33m"
+# define NC "\033[0m"
 
 struct	s_all;
 
@@ -58,7 +63,7 @@ typedef struct s_all
 int				ft_atoi(const char *nptr);
 unsigned long	now(void);
 void			*life_status(void *ptr);
-void			ft_print(t_philo *p, char *str);
+void			ft_print(t_philo *p, char *str, char *color);
 void			go_to_sleep(int time, t_all *all);
 
 #endif

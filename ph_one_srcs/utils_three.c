@@ -6,7 +6,7 @@
 /*   By: cromalde <cromalde@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 21:20:10 by cromalde          #+#    #+#             */
-/*   Updated: 2021/04/05 16:15:13 by cromalde         ###   ########.fr       */
+/*   Updated: 2021/04/05 18:11:34 by cromalde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	*life_status(void *ptr)
 			p->all->is_dead = 1;
 			sem_post(p->eating);
 			sem_wait(p->all->dead);
-			printf("%lu %d is died\n", (now() - p->all->time_start), p->id);
+			printf(RED" %lu %d is died\n"NC, (now() - p->all->time_start), p->id);
 			exit (1);
 		}
 		else if (!p->all->is_dead && p->m_end != -1 && \
@@ -47,13 +47,13 @@ void	*life_status(void *ptr)
 	return (0);
 }
 
-void	ft_print(t_philo *p, char *str)
+void	ft_print(t_philo *p, char *str, char *color)
 {
 	if (!p->all->is_dead && p->m_start != p->m_end)
 	{
 		sem_wait(p->all->print);
 		if (!p->all->is_dead && p->m_start != p->m_end)
-			printf("%lu %d %s\n", (now() - p->all->time_start), p->id, str);
+			printf("%s %lu %d %s\n", color,  (now() - p->all->time_start), p->id, str);
 		sem_post(p->all->print);
 	}
 }
