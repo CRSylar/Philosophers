@@ -1,6 +1,6 @@
 # Philosophers
 
-![Cromalde's 42Project Score](https://badge42.herokuapp.com/api/project/cromalde/Philosophers)
+[![cromalde's 42 Philosophers Score](https://badge42.vercel.app/api/v2/cl1z1axw3001109mox1m22pjp/project/2149177)](https://github.com/JaeSeoKim/badge42)
 
 philosophers project for 42 Rome
 
